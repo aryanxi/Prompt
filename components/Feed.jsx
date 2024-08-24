@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-import PromptCard from "./Promptcard";
+import PromptCard from "./PromptCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -38,12 +38,13 @@ const Feed = () => {
   }, []);
 
   const filterPrompts = (searchtext) => {
-    const regex = new RegExp(searchtext, "i"); 
+    const regex = new RegExp(searchtext, "i");
     return allPosts.filter(
       (item) =>
-        regex.test(item.creator.username) ||
-        regex.test(item.tag) ||
-        regex.test(item.prompt)
+        item.creator &&
+        (regex.test(item.creator.username) ||
+          regex.test(item.tag) ||
+          regex.test(item.prompt))
     );
   };
 
